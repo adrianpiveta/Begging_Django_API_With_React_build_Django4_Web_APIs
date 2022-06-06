@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .serializers import TodoSerializer, TodoToggleCompleteSerializer
@@ -57,5 +58,25 @@ def signup(request):
 
             token = Token.objects.create(user=user)
             return JsonResponse({'token': str(token)}, status=201)
-        except:
+        except IntegrityError:
             return JsonResponse({'error': 'username em uso, escolha outro'}, status=400)
+
+@csrf_exempt
+def login(request):
+    if request.method=='POST':
+        data = JSONParser.parse(request)
+        user = authenticate(
+            request,
+            username = data['username'],
+            password = data['password'])
+        if user is None:
+            return JsonResponse(
+                {'error':'Não foi possivel logar, usuario não localizado ou senha incorreta'},
+                status=400)
+        else:
+            try:
+                token = Token.objects.get(user=user)
+            except:
+                token = Token.objects.create(user=user)
+            return JsonResponse({'token': str(token)}
+                                , status=201)

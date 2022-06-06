@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0:8000',
     '100.64.62.183',
     'adrianogamer171.ddns.net',
+    'localhost',
 ]
 
 
