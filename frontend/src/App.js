@@ -52,6 +52,41 @@ function App() {
         </Nav>
         </div>
     </Navbar>
+    <div className="container mt-4">
+        <Switch>
+            <Route exact path={["/", "/todos"]} render={(props) =>
+                <TodosList {...props} token={token} />
+                }>
+             </Route>
+            <Route path="/todos/create" render={(props)=>
+                <AddTodo {...props} token={token} />
+                }>
+            </Route>
+            <Route path="/todos/:id/" render={(props)=>
+                <AddTodo {...props} token={token} />
+                }>
+            </Route>
+            <Route path="/login" render={(props)=>
+                <Login {...props} login={login} />
+                }>
+            </Route>
+            <Route path="/signup" render={(props)=>
+                <Signup {...props} signup={signup} />
+                }>
+            </Route>
+        </Switch>
+    </div>
+    <footer className="text-center text-lg-start bg-light text-muted mt-4">
+        <div className="text-center p-4">
+            Copyright -<a target="_blank" className="text-reset fw-bold text-decotarion-none"
+            href="https://github.com/adrianpiveta">
+            Adrian.pi
+            </a> - <a target="_blank" className="text-reset fw-bold text-decotarion-none"
+            href="https://github.com/adrianpiveta">
+            Adrian Piveta
+            </a>
+        </div>
+     </footer>
     </div>
   );
 }
