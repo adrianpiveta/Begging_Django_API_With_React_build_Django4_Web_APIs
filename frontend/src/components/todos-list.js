@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import TodoDataService from '../services/todos';
+import { Link } from 'react-router-dom';
 
-function TodosList(){
-    return(
-        <div className="App">
-            Todos List
-        </div>
-    );
+const TodosList = props => {
+    const [todos, setTodos] = useState([]);
 }
 
-export default TodosList
+useEffect(() =>{
+    retrieveTodos();
+}, [props.token]);
+
+const retrieveTodos = () => {
+  TodoDataService.getAll(props.token)
+    .then(response => {
+    setTodos(response.data);
+    })
+    .catch( e => {
+     console.log(e);
+    });
+}
+
+export default TodosList;
